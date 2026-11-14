@@ -33,9 +33,7 @@ jobs:
         run: npm run build
 
       - name: Run tests
-        run: npm test -- --watch=false --browsers=ChromeHeadless
-        env:
-          CHROME_BIN: /usr/bin/google-chrome
+        run: npm test 
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v8.4.0
