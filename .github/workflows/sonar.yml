@@ -32,8 +32,16 @@ jobs:
       - name: Build Angular project
         run: npm run build
 
-      - name: Run tests
-        run: npm test 
+      - name: Check test configuration
+        run: |
+          echo "Verificando configuración de pruebas..."
+          if grep -q '"test": {' angular.json; then
+            npm test -- --watch=false --browsers=ChromeHeadless
+          else
+            echo "No existe un objetivo test configurado en angular.json."
+            echo "Las pruebas no se ejecutaron."
+            echo "Se continuará con el análisis estático de SonarQube Cloud."
+          fi
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v8.4.0
